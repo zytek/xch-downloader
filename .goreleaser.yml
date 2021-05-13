@@ -1,0 +1,61 @@
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod download
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^typo'
+
+brews:
+  -
+ #    name: myproject
+
+    tap:
+      owner: zytek
+      name: homebrew-tools
+
+    # Git author used to commit to the repository.
+    # Defaults are shown.
+    commit_author:
+      name: zytek
+      email: zytek@nuxi.pl
+
+    # Folder inside the repository to put the formula.
+    # Default is the root folder.
+    folder: Formula
+
+    caveats: ""
+    homepage: "https://xch-plotter.com"
+    description: "Download utiity for xch-plotter.com"
+    license: "MIT"
+    skip_upload: false
+
+    dependencies: []
+
+    test: |
+      system "#{bin}/xch-downloader"
+
+    install: |
+      bin.install "xch-downloader"
