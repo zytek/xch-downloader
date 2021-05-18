@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 	"sync"
 	"time"
 )
@@ -62,6 +63,11 @@ func main() {
 
 		Status(Downloads)
 
+		if !config.Daemonize {
+			os.Exit(0)
+		}
+
 		log.Println("All done, re-checking for new plots")
+		time.Sleep(1 * time.Second)
 	}
 }

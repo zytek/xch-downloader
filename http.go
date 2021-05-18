@@ -15,7 +15,7 @@ func DoRequest(method string, endpoint *url.URL) ([]byte, error) {
 	client := http.Client{
 		Timeout: time.Second * 5,
 	}
-	req, err := http.NewRequest(http.MethodGet, endpoint.String(), nil)
+	req, err := http.NewRequest(method, endpoint.String(), nil)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -33,7 +33,7 @@ func DoRequest(method string, endpoint *url.URL) ([]byte, error) {
 	}
 
 	if res.StatusCode != 200 {
-		err := errors.New(fmt.Sprintf("bad status code: %s", res.StatusCode))
+		err := errors.New(fmt.Sprintf("bad status code: %v", res.StatusCode))
 		return nil, err
 	}
 

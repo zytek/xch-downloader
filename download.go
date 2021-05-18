@@ -68,10 +68,10 @@ func Status(Downloads []*Download) {
 			log.Printf("[%v] error during download: %v", err)
 		} else {
 			if config.Delete {
-				log.Printf("[%v] plot downloaded, marking it for deletion")
+				log.Printf("[%v] plot downloaded, marking it for deletion", v.PlotID)
 				v.MarkDone()
 			} else {
-				log.Printf("[%v] plot downloaded, NOT deleting it on server due to -delete=false")
+				log.Printf("[%v] plot downloaded, NOT deleting it on server due to -delete=false", v.PlotID)
 			}
 		}
 	}
